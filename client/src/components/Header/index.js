@@ -4,7 +4,7 @@ import Auth from '../../utils/auth';
 
 const Header = () => {
   const logout = (event) => {
-    event.preventDefaut();
+    event.preventDefault();
     Auth.logout();
   }
   return (
@@ -21,7 +21,7 @@ const Header = () => {
         ) : (
           <>
             <Link to="/login">Login </Link>
-            <Link> Signup</Link>
+            <Link to="/signup"> Signup</Link>
           </>
         )}
       </div>
