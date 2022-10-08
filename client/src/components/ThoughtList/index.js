@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link,   } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { REMOVE_THOUGHT } from '../../utils/mutations';
@@ -11,9 +11,9 @@ const ThoughtList = ({
   showTitle = true,
   showUsername = true,
 }) => {
-  
+
   const [removeThought, { error, data }] = useMutation(REMOVE_THOUGHT);
- 
+
   if (!thoughts.length) {
     return <h3>No Thoughts Yet</h3>;
   }

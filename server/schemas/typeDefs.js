@@ -43,9 +43,10 @@ const typeDefs = gql`
     addThought(thoughtText: String!): Thought
     addReaction(thoughtId: ID!, reactionText: String!): Thought
     removeThought(_id: String): Thought
-    removeReaction(thoughtId: ID!, reactionId: ID!): Thought
+    removeReaction(
+      thoughtId: ID
+      reactionId: ID): Thought
   }
 `;
 
 module.exports = typeDefs;
-// removeThought(thoughtId: ID!): Thought

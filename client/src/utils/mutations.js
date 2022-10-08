@@ -55,17 +55,32 @@ export const ADD_REACTION = gql`
   }
 `;
 
-// export const REMOVE_THOUGHT = gql`
-//   mutation removeThought($_id: String) {
-//     removeThought(_id: $_id) {        
-//       _id
-//     }
-//   }
-// `;
 export const REMOVE_THOUGHT = gql`
   mutation removeThought($_id: String) {
     removeThought(_id: $_id) {        
       _id
+    }
+  }
+`;
+
+export const REMOVE_REACTION = gql`
+  mutation removeReaction (
+    $thoughtId: ID,
+    $reactionId: ID,
+    ) {
+    removeReaction(
+      thoughtId: $thoughtId,
+      reactionId: $reactionId,
+      ) {        
+        _id
+        thoughtText
+        username
+        createdAt
+        reactions {
+          _id
+          reactionText
+          createdAt
+        }
     }
   }
 `;

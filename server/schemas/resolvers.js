@@ -105,23 +105,32 @@ const resolvers = {
       return Thought.findOneAndDelete({ _id: _id });
     },
 
-    removeReaction: async (parent, { thoughtId, reactionId }, context) => {
-      if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          {
-            $pull: {
-              reactions: {
-                _id: reactionId,
-                username: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
+    // removeComment: async (parent, { thoughtId, commentId }, context) => {
+    //   if (context.user) {
+    //     return Thought.findOneAndUpdate(
+    //       { _id: thoughtId },
+    //       {
+    //         $pull: {
+    //           comments: {
+    //             _id: commentId,
+    //             commentAuthor: context.user.username,
+    //           },
+    //         },
+    //       },
+    //       { new: true }
+    //     );
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
+
+    removeReaction: async (parent, { thoughtId, reactionId }) => {
+      return Thought.findOneAndUpdate(
+        { _id: thoughtId },
+        { $pull: { reactions: { _id: reactionId } } },
+        { new: true }
+      );
     },
+
   },
 };
 

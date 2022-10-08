@@ -1,10 +1,31 @@
 import React from 'react';
+import Auth from '../../utils/auth';
+import { useMutation } from '@apollo/client';
+import { REMOVE_REACTION } from '../../utils/mutations';
+import { useParams } from 'react-router-dom';
 
 const ReactionList = ({ reactions = [] }) => {
+  const [removeReaction, { error, data }] = useMutation(REMOVE_REACTION);
+  let thoughtId = useParams()
+  console.log(thoughtId.thoughtId)
   if (!reactions.length) {
     return <h3>No Reactions Yet</h3>;
   }
-
+  const handleDelete = async (singleReaction) => {
+    console.log(singleReaction)
+    try {
+      const { data } = await removeReaction({
+        variables: {
+          thoughtId: thoughtId.thoughtId,
+          reactionId: singleReaction,
+          reactions: [reactions]
+        },
+      });
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <>
       <h3
@@ -25,6 +46,10 @@ const ReactionList = ({ reactions = [] }) => {
                   </span>
                 </h5>
                 <p className="card-body">{reaction.reactionText}</p>
+
+                {Auth.getProfile().data.username === reaction.username && (<button onClick={() => handleDelete(reaction._id)}>
+                  X
+                </button>)}
               </div>
             </div>
           ))}
