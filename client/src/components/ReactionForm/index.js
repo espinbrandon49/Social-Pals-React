@@ -51,25 +51,25 @@ const ReactionForm = ({ thoughtId }) => {
             }`}
           >
             Character Count: {characterCount}/280
-            {error && <span className="ml-2">{error.message}</span>}
+            {error && <span className="">{error.message}</span>}
           </p>
           <form
-            className="flex-row justify-center justify-space-between-md align-center"
+            className=""
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div className="">
               <textarea
                 name="reactionText"
                 placeholder="Add your reaction..."
                 value={reactionText}
-                className="form-input w-100"
+                className=""
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
               ></textarea>
             </div>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+            <div className="">
+              <button className="" type="submit">
                 Add Reaction
               </button>
             </div>
