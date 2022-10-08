@@ -19,17 +19,17 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  // friends: [
-  // {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User'
-  // }
-  // ]
   thoughts: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Thought',
     },
+  ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
   ],
 });
 

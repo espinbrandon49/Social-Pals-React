@@ -2,6 +2,13 @@
   {
     "username": "Bambino",
     "email": "bambino@email.com",
-    "password": "password01"
+    "password": "password01",
+    "friends": []
+  },
+  {
+    "username": "Bambino2",
+    "email": "bambino2@email.com",
+    "password": "password01",
+    "friends": []
   }
 ]

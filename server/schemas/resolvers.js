@@ -31,7 +31,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -66,7 +66,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    
+
     addReaction: async (parent, { thoughtId, reactionText }, context) => {
       if (context.user) {
         return Thought.findOneAndUpdate(
@@ -84,50 +84,30 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    // removeThought: async (parent, { thoughtId }, context) => {
-    //   if (context.user) {
-    //     const thought = await Thought.findOneAndDelete({
-    //       _id: thoughtId,
-    //       username: context.user.username,
-    //     });
-
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $pull: { thoughts: thought._id } }
-    //     );
-
-    //     return thought;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
 
     removeThought: async (parent, { _id }) => {
       return Thought.findOneAndDelete({ _id: _id });
     },
-
-    // removeComment: async (parent, { thoughtId, commentId }, context) => {
-    //   if (context.user) {
-    //     return Thought.findOneAndUpdate(
-    //       { _id: thoughtId },
-    //       {
-    //         $pull: {
-    //           comments: {
-    //             _id: commentId,
-    //             commentAuthor: context.user.username,
-    //           },
-    //         },
-    //       },
-    //       { new: true }
-    //     );
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
 
     removeReaction: async (parent, { thoughtId, reactionId }) => {
       return Thought.findOneAndUpdate(
         { _id: thoughtId },
         { $pull: { reactions: { _id: reactionId } } },
         { new: true }
+      );
+    },
+
+    addFriend: async (parent, { userId, friendId }) => {
+      return User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $addToSet: {
+            friends: { _id: friendId },
+          },
+        },
+        {
+          new: true
+        }
       );
     },
 

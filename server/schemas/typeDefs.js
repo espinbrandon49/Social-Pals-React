@@ -7,6 +7,7 @@ const typeDefs = gql`
     email: String
     password: String
     thoughts: [Thought]!
+    friends: [User]
   }
 
   type Thought {
@@ -28,7 +29,12 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-  
+
+  type Friend {
+    _id: ID
+    friend: User
+  }
+
   type Query {
     users: [User]
     user(username: String!): User
@@ -46,6 +52,9 @@ const typeDefs = gql`
     removeReaction(
       thoughtId: ID
       reactionId: ID): Thought
+    addFriend(
+      userId: ID 
+      friendId: ID): Friend
   }
 `;
 
