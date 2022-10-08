@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Thought } = require('../models');
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose')
 
 const resolvers = {
   Query: {
@@ -110,6 +111,19 @@ const resolvers = {
         }
       );
     },
+
+    removeFriend: async (parent, { userId, friendId }) => {
+      return User.findOneAndUpdate(
+       { _id: userId },
+        { $pull: { friends: mongoose.Types.ObjectId(friendId) } },
+        { new: true }
+      );
+    },
+    // removeFriend: async (parent, { userId }) => {
+    //   return User.findOneAndDelete(
+    //    { _id: userId }
+    //   );
+    // },
 
   },
 };

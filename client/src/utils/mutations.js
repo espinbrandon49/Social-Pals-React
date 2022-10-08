@@ -64,6 +64,15 @@ mutation addFriend($userId: ID, $friendId: ID) {
   }
 }
 `
+export const REMOVE_FRIEND = gql`
+mutation removeFriend($userId: ID, $friendId: ID) {
+  removeFriend(userId: $userId, friendId: $friendId) {
+    userId
+    friendId
+    friends
+  }
+}
+`
 
 export const REMOVE_THOUGHT = gql`
   mutation removeThought($_id: String) {

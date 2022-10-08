@@ -55,6 +55,9 @@ const typeDefs = gql`
     addFriend(
       userId: ID 
       friendId: ID): Friend
+    removeFriend(
+      userId: ID
+      friendId: ID): Friend
   }
 `;
 
