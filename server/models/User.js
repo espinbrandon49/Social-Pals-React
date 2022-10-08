@@ -5,28 +5,32 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    trim: true,
   },
   email: {
     type: String,
-    unique: true,
     required: true,
+    unique: true,
+    match: [/.+@.+\..+/, 'Must match an email address!'],
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
   },
+  // friends: [
+  // {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'
+  // }
+  // ]
   thoughts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Thought",
-    }
+      ref: 'Thought',
+    },
   ],
-  // friends: [{
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'User'
-  // }]
 });
 
 userSchema.pre('save', async function (next) {

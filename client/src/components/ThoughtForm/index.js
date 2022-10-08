@@ -26,11 +26,11 @@ const ThoughtForm = () => {
       }
 
       // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
-      });
+      // const { me } = cache.readQuery({ query: QUERY_ME });
+      // cache.writeQuery({
+      //   query: QUERY_ME,
+      //   data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
+      // });
     },
   });
 
@@ -62,7 +62,7 @@ const ThoughtForm = () => {
 
   return (
     <div>
-      <h3>So what's on your mind?</h3>
+      <h3>What's on your techy mind?</h3>
 
       {Auth.loggedIn() ? (
         <>
@@ -74,26 +74,27 @@ const ThoughtForm = () => {
             Character Count: {characterCount}/280
           </p>
           <form
-            className=""
+            className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="">
+            <div className="col-12 col-lg-9">
               <textarea
                 name="thoughtText"
                 placeholder="Here's a new thought..."
                 value={thoughtText}
+                className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
               ></textarea>
             </div>
 
-            <div className="">
-              <button className="" type="submit">
+            <div className="col-12 col-lg-3">
+              <button className="btn btn-primary btn-block py-3" type="submit">
                 Add Thought
               </button>
             </div>
             {error && (
-              <div className="">
+              <div className="col-12 my-3 bg-danger text-white p-3">
                 {error.message}
               </div>
             )}
@@ -101,7 +102,7 @@ const ThoughtForm = () => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please
+          You need to be logged in to share your thoughts. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}

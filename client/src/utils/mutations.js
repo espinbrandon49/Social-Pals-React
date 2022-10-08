@@ -38,3 +38,34 @@ export const ADD_THOUGHT = gql`
     }
   }
 `;
+
+export const ADD_REACTION = gql`
+  mutation addReaction($thoughtId: ID!, $reactionText: String!) {
+    addReaction(thoughtId: $thoughtId, reactionText: $reactionText) {
+      _id
+      thoughtText
+      username
+      createdAt
+      reactions {
+        _id
+        reactionText
+        createdAt
+      }
+    }
+  }
+`;
+
+// export const REMOVE_THOUGHT = gql`
+//   mutation removeThought($_id: String) {
+//     removeThought(_id: $_id) {        
+//       _id
+//     }
+//   }
+// `;
+export const REMOVE_THOUGHT = gql`
+  mutation removeThought($_id: String) {
+    removeThought(_id: $_id) {        
+      _id
+    }
+  }
+`;

@@ -42,9 +42,10 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addThought(thoughtText: String!): Thought
     addReaction(thoughtId: ID!, reactionText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
+    removeThought(_id: String): Thought
     removeReaction(thoughtId: ID!, reactionId: ID!): Thought
   }
 `;
 
 module.exports = typeDefs;
+// removeThought(thoughtId: ID!): Thought

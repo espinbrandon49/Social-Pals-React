@@ -26,6 +26,12 @@ const resolvers = {
   },
 
   Mutation: {
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+    },
+    
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -41,12 +47,6 @@ const resolvers = {
 
       const token = signToken(user);
 
-      return { token, user };
-    },
-
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
       return { token, user };
     },
 
@@ -66,8 +66,63 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    
+    addReaction: async (parent, { thoughtId, reactionText }, context) => {
+      if (context.user) {
+        return Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $addToSet: {
+              reactions: { reactionText, username: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    // removeThought: async (parent, { thoughtId }, context) => {
+    //   if (context.user) {
+    //     const thought = await Thought.findOneAndDelete({
+    //       _id: thoughtId,
+    //       username: context.user.username,
+    //     });
 
-  }
-}
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { thoughts: thought._id } }
+    //     );
+
+    //     return thought;
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
+
+    removeThought: async (parent, { _id }) => {
+      return Thought.findOneAndDelete({ _id: _id });
+    },
+
+    removeReaction: async (parent, { thoughtId, reactionId }, context) => {
+      if (context.user) {
+        return Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $pull: {
+              reactions: {
+                _id: reactionId,
+                username: context.user.username,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+  },
+};
 
 module.exports = resolvers;
