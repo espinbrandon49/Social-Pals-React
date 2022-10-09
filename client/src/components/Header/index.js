@@ -12,7 +12,7 @@ const Header = () => {
     Auth.logout();
   };
   return (
-    <header >
+    <header className='mb-3'>
       <Navbar bg="dark" variant="dark">
         <Container>
           <div>
@@ -23,7 +23,7 @@ const Header = () => {
             {Auth.loggedIn() ? (
               <div className="d-flex h4 pb-2 mb-4 text-danger border-bottom border-danger">
                 <Nav.Link>
-                  <Link className='link' to="/me">
+                  <Link className='link roboto' to="/me">
                     {Auth.getProfile().data.username}'s Profile
                   </Link>
                 </Nav.Link>
@@ -34,12 +34,12 @@ const Header = () => {
             ) : (
               <>
                 <Nav.Link href="#">
-                  <Link className='link' to="/login">
+                  <Link className='link roboto' to="/login">
                     Login
                   </Link>
                 </Nav.Link>
                 <Nav.Link href="#">
-                  <Link className='link' to="/signup">
+                  <Link className='link roboto' to="/signup">
                     Signup
                   </Link>
                 </Nav.Link>

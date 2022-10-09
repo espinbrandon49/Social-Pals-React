@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
 import { REMOVE_THOUGHT } from '../../utils/mutations';
 import Auth from '../../utils/auth';
+import Card from 'react-bootstrap/Card';
 
 const ThoughtList = ({
   thoughts,
@@ -31,42 +31,47 @@ const ThoughtList = ({
 
   return (
     <div>
-      {showTitle && <h3>{title}</h3>}
+      {showTitle && <h3 className='roboto my-3'>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="">
-            <h4 className="">
-              {showUsername ? (
-                <Link
-                  className=""
-                  to={`/profiles/${thought.username}`}
-                >
-                  {thought.username} <br />
-                  <span style={{ fontSize: '1rem' }}>
-                    had this thought on {thought.createdAt}
-                  </span>
-                </Link>
-              ) : (
-                <>
-                  <span style={{ fontSize: '1rem' }}>
-                    You had this thought on {thought.createdAt}
-                  </span>
-                  {Auth.getProfile().data.username === thought.username && (<button onClick={() => handleDelete(thought._id)}>
-                    Remove
-                  </button>)}
-                </>
-              )}
-            </h4>
-            <div className="">
-              <p>{thought.thoughtText}</p>
-            </div>
-            <Link
-              className=""
-              to={`/thoughts/${thought._id}`}
-            >
-              Join the discussion on this thought.
-            </Link>
-          </div>
+          <Card key={thought._id} style={{ width: '45rem' }} >
+            <Card.Body>
+              < >
+                {showUsername ? (
+                  <Link
+                    className='noDeco'
+                    to={`/profiles/${thought.username}`}
+                  >
+                    <Card.Title className=''>
+                      {thought.username}
+                    </Card.Title>
+                    <Card.Subtitle className="pb-2 mb-2 border-bottom border-danger text-muted ">
+                      had this thought on {thought.createdAt}
+                    </Card.Subtitle>
+                  </Link>
+                ) : (
+                  <>
+                    <Card.Title >
+                      You had this thought on {thought.createdAt}
+                      {Auth.getProfile().data.username === thought.username && (<button className='mx-3 btn btn-outline-danger' onClick={() => handleDelete(thought._id)}>
+                        Remove
+                      </button>)}
+                    </Card.Title>
+                  </>
+                )}
+              </>
+              <Card.Text className="noDeco pt-3 ">
+                {thought.thoughtText}
+              </Card.Text>
+              <Card.Link className=""><Link
+              className=''
+                to={`/thoughts/${thought._id}`}
+              >
+                Join the discussion on this thought.
+              </Link>
+              </Card.Link>
+            </Card.Body>
+          </Card>
         ))}
     </div>
   );

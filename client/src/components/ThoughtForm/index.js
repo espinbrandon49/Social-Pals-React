@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
-
 import Auth from '../../utils/auth';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 const ThoughtForm = () => {
   const [thoughtText, setThoughtText] = useState('');
@@ -61,35 +61,35 @@ const ThoughtForm = () => {
   };
 
   return (
-    <div>
-      <h3>What's on your techy mind?</h3>
+    <div className='p-3' style={{backgroundColor: "#f8f9fa"}}>
+      <h3 className='roboto'>So what's on your mind?</h3>
 
       {Auth.loggedIn() ? (
         <>
           <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
+            className={`roboto ${characterCount === 280 || error ? 'text-danger' : 'roboto'}`}
           >
             Character Count: {characterCount}/280
           </p>
-          <form
-            className=""
-            onSubmit={handleFormSubmit}
-          >
-            <div className="">
-              <textarea
+          <Form onSubmit={handleFormSubmit} >
+            <FloatingLabel
+              controlId="floatingTextarea"
+              label="Something worth reacting to..."
+              className="mb-3 roboto"
+            >
+              <Form.Control
+                as="textarea"
+                placeholder="Thoughts go here"
+                className='roboto'
                 name="thoughtText"
-                placeholder="Here's a new thought..."
                 value={thoughtText}
-                className=""
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                style={{ lineHeight: '1.5', resize: 'vertical', height: '100px'}}
                 onChange={handleChange}
-              ></textarea>
-            </div>
+              />
+            </FloatingLabel>
 
             <div className="">
-              <button className="" type="submit">
+              <button className="btn btn-dark" type="submit">
                 Add Thought
               </button>
             </div>
@@ -98,11 +98,11 @@ const ThoughtForm = () => {
                 {error.message}
               </div>
             )}
-          </form>
+          </Form>
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to share your thoughts. Please
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}

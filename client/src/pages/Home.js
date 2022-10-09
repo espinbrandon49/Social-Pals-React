@@ -12,23 +12,18 @@ const Home = () => {
 
   return (
     <main>
-      <div className="">
-        <div
-          className=""
-          style={{ border: '1px dotted #1a1a1a' }}
-        >
-          <ThoughtForm />
-        </div>
-        <div className="">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <ThoughtList
-              thoughts={thoughts}
-              title="Some Feed for Thought(s)..."
-            />
-          )}
-        </div>
+      <div className='mx-auto' style={{ border: '1px dotted #1a1a1a', width: '54rem' }}>
+        <ThoughtForm />
+      </div>
+      <div className=" d-flex flex-column align-items-center">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <ThoughtList
+            thoughts={thoughts}
+            title="So here are your thought(s)!"
+          />
+        )}
       </div>
     </main>
   );
