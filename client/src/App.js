@@ -41,14 +41,20 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const styles = {
+  minVh:  {
+    minHeight: "100vh",
+  }
+}
+
 function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
         {/* <div className="flex-column justify-flex-start min-100-vh"> */}
-        <div className="">
+        <div style={styles.minVh}>
           <Header />
-          <div className="">
+          <div className="container">
             <Routes>
               <Route 
                 path="/"

@@ -1,0 +1,13 @@
+.link {
+  text-decoration: none !important;
+  color: rgb(255, 255, 255, 0.55) !important;
+}
+
+.link:hover {
+  color: rgb(255, 255, 255, 0.75) !important;
+}
+
+.brand {
+  text-decoration: none !important;
+  color: #fff !important;
+}

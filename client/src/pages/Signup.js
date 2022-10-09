@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
 import Auth from '../utils/auth';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
@@ -39,27 +39,36 @@ const Signup = () => {
   };
 
   return (
-    <main className="">
-      <div className="">
-        <div className="">
-          <h4 className="">Sign Up</h4>
-          <div className="">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className=""
+    <main className="container">
+      <h4 className="display-6">Sign Up</h4>
+      <div>
+        {data ? (
+          <p>
+            Success! You may now head
+            <Link to="/">back to the homepage.</Link>
+          </p>
+        ) : (
+          <form onSubmit={handleFormSubmit}>
+            <>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="username"
+                className="mb-3">
+                <Form.Control
                   placeholder="Your username"
                   name="username"
                   type="text"
                   value={formState.name}
                   onChange={handleChange}
                 />
-                <input
+              </FloatingLabel>
+
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Email address"
+                className="mb-3"
+              >
+                <Form.Control
                   className=""
                   placeholder="Your email"
                   name="email"
@@ -67,7 +76,9 @@ const Signup = () => {
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <input
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="Password">
+                <Form.Control
                   className=""
                   placeholder="******"
                   name="password"
@@ -75,23 +86,17 @@ const Signup = () => {
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <button
-                  className=""
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
+              </FloatingLabel>
+            </>
+            <button type="submit" className="btn btn-outline-primary mt-3">Submit</button>
+          </form>
+        )}
 
-            {error && (
-              <div className="">
-                {error.message}
-              </div>
-            )}
+        {error && (
+          <div className="">
+            {error.message}
           </div>
-        </div>
+        )}
       </div>
     </main>
   );

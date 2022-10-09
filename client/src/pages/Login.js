@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+
 
 import Auth from '../utils/auth';
 
@@ -41,51 +44,48 @@ const Login = (props) => {
   };
 
   return (
-    <main className="">
+    <main className="container">
+      <h4 className="display-6">Login</h4>
       <div className="">
-        <div className="">
-          <h4 className="">Login</h4>
-          <div className="">
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className=""
-                  placeholder="Your email"
-                  name="email"
+        {data ? (
+          <p>
+            Success! You may now head
+            <Link to="/">back to the homepage.</Link>
+          </p>
+        ) : (
+          <form onSubmit={handleFormSubmit}>
+            <>
+              <FloatingLabel
+                controlId="floatingInput"
+                label="Email address"
+                className="mb-3"
+              >
+                <Form.Control
                   type="email"
+                  name="email"
                   value={formState.email}
                   onChange={handleChange}
-                />
-                <input
-                  className=""
-                  placeholder="******"
+                  placeholder="name@example.com" />
+              </FloatingLabel>
+              <FloatingLabel controlId="floatingPassword" label="Password">
+                <Form.Control
+                  placeholder="Password"
                   name="password"
                   type="password"
                   value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className=""
+                  onChange={handleChange} />
+              </FloatingLabel>
+            </>
+            <button type="submit" className="btn btn-outline-primary mt-3">Submit</button>
+          </form>
+        )}
 
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
-            )}
-
-            {error && (
-              <div className="">
-                {error.message}
-              </div>
-            )}
+        {error && (
+          <div className="invalid-feedback">
+            {error.message}
           </div>
-        </div>
+        )}
+
       </div>
     </main>
   );
