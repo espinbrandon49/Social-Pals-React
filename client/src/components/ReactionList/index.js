@@ -30,7 +30,7 @@ const ReactionList = ({ reactions = [] }) => {
     <>
       <h3
         className="pb-2 mb-2 border-bottom border-danger roboto"
-      // style={{ borderBottom: '1px dotted #1a1a1a' }}
+  
       >
         Reactions
       </h3>
@@ -41,7 +41,7 @@ const ReactionList = ({ reactions = [] }) => {
             <div key={reaction._id} className="p-2">
 
               <div className='bg-light text-secondary py-2 my-1'>
-                <h5 className="roboto px-3">
+                <h5 className="roboto px-3 fw-semibold">
                   {reaction.username} reacted
                   <span className='fs-6'>&nbsp;
                     on {reaction.createdAt} &nbsp;

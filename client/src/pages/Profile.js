@@ -50,7 +50,7 @@ const Profile = () => {
 
       {!userParam && (
         <div
-          style={{ border: '1px dotted #1a1a1a' }}
+          style={{ border: '1px dotted #dc3545' }}
         >
           <ThoughtForm />
         </div>

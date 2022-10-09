@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <main>
-      <div className='mx-auto' style={{ border: '1px dotted #1a1a1a', maxWidth: '54rem' }}>
+      <div className='mx-auto' style={{ border: '1px dotted #dc3545', maxWidth: '54rem' }}>
         <ThoughtForm />
       </div>
       <div className=" d-flex flex-column align-items-center">

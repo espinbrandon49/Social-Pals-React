@@ -24,27 +24,29 @@ const SingleThought = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="">
-      <h3 className="">
-        {thought.username} <br />
-        <span style={{ fontSize: '1rem' }}>
-          had this thought on {thought.createdAt}
-        </span>
-      </h3>
-      <div className="">
-        <blockquote
-          className=""
-          style={{
-            fontSize: '1.5rem',
-            fontStyle: 'italic',
-            border: '2px dotted #1a1a1a',
-            lineHeight: '1.5',
-          }}
-        >
-          {thought.thoughtText}
-        </blockquote>
-      </div>
+    <div >
+      <div className='my-3' style={{backgroundColor: "#e9ecef"}}>
+        <h3 className="roboto bg-secondary text-light p-2">
+          {thought.username} <br />
+          <span style={{ fontSize: '1rem' }}>
+            had this thought on {thought.createdAt}
+          </span>
+        </h3>
 
+        <div className=" text-dark p-3">
+          <blockquote
+            className="p-3"
+            style={{
+              fontSize: '1.5rem',
+              fontStyle: 'italic',
+              border: '2px dotted #dc3545',
+              lineHeight: '1.5',
+            }}
+          >
+            {thought.thoughtText}
+          </blockquote>
+        </div>
+      </div>
       <div className="">
         <ReactionList reactions={thought.reactions} />
       </div>
