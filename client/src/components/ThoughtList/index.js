@@ -34,7 +34,7 @@ const ThoughtList = ({
       {showTitle && <h3 className='roboto my-3'>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <Card key={thought._id} style={{ width: '45rem' }} >
+          <Card key={thought._id} style={{ maxWidth: '45rem' }}  className='mb-3' >
             <Card.Body>
               < >
                 {showUsername ? (
@@ -51,7 +51,7 @@ const ThoughtList = ({
                   </Link>
                 ) : (
                   <>
-                    <Card.Title >
+                    <Card.Title className='roboto'>
                       You had this thought on {thought.createdAt}
                       {Auth.getProfile().data.username === thought.username && (<button className='mx-3 btn btn-outline-danger' onClick={() => handleDelete(thought._id)}>
                         Remove

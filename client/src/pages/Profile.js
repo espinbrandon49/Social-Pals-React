@@ -36,29 +36,25 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <div className="">
-        <h2 className="">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
+    <div className='d-flex flex-column align-items-center'>
+      <h2 className="roboto">
+        Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+      </h2>
 
-        <div className="">
-          <ThoughtList
-            thoughts={user.thoughts}
-            title={`${user.username}'s thoughts...`}
-            showTitle={false}
-            showUsername={false}
-          />
+      <ThoughtList
+        thoughts={user.thoughts}
+        title={`${user.username}'s thoughts...`}
+        showTitle={false}
+        showUsername={false}
+      />
+
+      {!userParam && (
+        <div
+          style={{ border: '1px dotted #1a1a1a' }}
+        >
+          <ThoughtForm />
         </div>
-        {!userParam && (
-          <div
-            className=""
-            style={{ border: '1px dotted #1a1a1a' }}
-          >
-            <ThoughtForm />
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 };

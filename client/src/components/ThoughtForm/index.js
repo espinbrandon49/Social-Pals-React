@@ -88,7 +88,7 @@ const ThoughtForm = () => {
               />
             </FloatingLabel>
 
-            <div className="">
+            <div >
               <button className="btn btn-dark" type="submit">
                 Add Thought
               </button>

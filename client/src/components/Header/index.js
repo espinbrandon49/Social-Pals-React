@@ -21,9 +21,9 @@ const Header = () => {
           </div>
           <Nav className="me-auto">
             {Auth.loggedIn() ? (
-              <div className="d-flex h4 pb-2 mb-4 text-danger border-bottom border-danger">
+              <div className="d-flex h5 pb-2 mb-4 text-danger border-bottom border-danger">
                 <Nav.Link>
-                  <Link className='link roboto' to="/me">
+                  <Link className='link roboto h5' to="/me">
                     {Auth.getProfile().data.username}'s Profile
                   </Link>
                 </Nav.Link>
@@ -34,12 +34,12 @@ const Header = () => {
             ) : (
               <>
                 <Nav.Link href="#">
-                  <Link className='link roboto' to="/login">
+                  <Link className='link roboto h5' to="/login">
                     Login
                   </Link>
                 </Nav.Link>
                 <Nav.Link href="#">
-                  <Link className='link roboto' to="/signup">
+                  <Link className='link roboto h5' to="/signup">
                     Signup
                   </Link>
                 </Nav.Link>

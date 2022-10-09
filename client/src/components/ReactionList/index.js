@@ -29,28 +29,31 @@ const ReactionList = ({ reactions = [] }) => {
   return (
     <>
       <h3
-        className=""
-        style={{ borderBottom: '1px dotted #1a1a1a' }}
+        className="pb-2 mb-2 border-bottom border-danger roboto"
+      // style={{ borderBottom: '1px dotted #1a1a1a' }}
       >
         Reactions
       </h3>
+
       <div className="">
         {reactions &&
           reactions.map((reaction) => (
-            <div key={reaction._id} className="">
-              <div className="">
-                <h5 className="">
+            <div key={reaction._id} className="p-2">
+
+              <div className='bg-light text-secondary py-2 my-1'>
+                <h5 className="roboto px-3">
                   {reaction.username} reacted
-                  <span style={{ fontSize: '0.825rem' }}>
-                    on {reaction.createdAt}
+                  <span className='fs-6'>&nbsp;
+                    on {reaction.createdAt} &nbsp;
+
+                    {Auth.getProfile().data.username === reaction.username && (<button className='btn btn-outline-danger btn-sm rounded-circle bg-white' onClick={() => handleDelete(reaction._id)}>
+                      X
+                    </button>)}
                   </span>
                 </h5>
-                <p className="">{reaction.reactionText}</p>
-
-                {Auth.getProfile().data.username === reaction.username && (<button onClick={() => handleDelete(reaction._id)}>
-                  X
-                </button>)}
+                <p className="roboto px-3">{reaction.reactionText}</p>
               </div>
+              
             </div>
           ))}
       </div>
