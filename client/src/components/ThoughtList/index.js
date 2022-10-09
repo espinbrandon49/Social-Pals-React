@@ -36,7 +36,7 @@ const ThoughtList = ({
         thoughts.map((thought) => (
           <Card key={thought._id} style={{ maxWidth: '45rem' }}  className='mb-3' >
             <Card.Body>
-              < >
+              <>
                 {showUsername ? (
                   <Link
                     className='noDeco'

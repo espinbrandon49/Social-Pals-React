@@ -33,12 +33,12 @@ const Header = () => {
               </div>
             ) : (
               <>
-                <Nav.Link href="#">
+                <Nav.Link >
                   <Link className='link roboto h5' to="/login">
                     Login
                   </Link>
                 </Nav.Link>
-                <Nav.Link href="#">
+                <Nav.Link >
                   <Link className='link roboto h5' to="/signup">
                     Signup
                   </Link>

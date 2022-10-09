@@ -91,3 +91,5 @@ function App() {
 }
 
 export default App;
+
+//when you try to go to a profile by clicked a username and are not logged in, you crash
