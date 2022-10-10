@@ -51,8 +51,7 @@ const Profile = () => {
   let friendId = user._id
   let userId = Auth.getProfile().data._id
   let username = user._id
-  // console.log(user)
-  // console.log(Auth.getProfile().data)
+
   const addFriendHandle = async (event) => {
     event.preventDefault()
     try {

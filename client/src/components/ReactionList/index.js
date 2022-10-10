@@ -12,7 +12,6 @@ const ReactionList = ({ reactions = [] }) => {
     return <h3>No Reactions Yet</h3>;
   }
   const handleDelete = async (singleReaction) => {
-    console.log(singleReaction)
     try {
       const { data } = await removeReaction({
         variables: {

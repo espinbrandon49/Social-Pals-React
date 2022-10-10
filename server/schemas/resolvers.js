@@ -119,11 +119,6 @@ const resolvers = {
         { new: true }
       );
     },
-    // removeFriend: async (parent, { userId }) => {
-    //   return User.findOneAndDelete(
-    //    { _id: userId }
-    //   );
-    // },
 
   },
 };
