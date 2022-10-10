@@ -71,18 +71,6 @@ const ReactionForm = ({ thoughtId }) => {
                 onChange={handleChange}
               />
             </FloatingLabel>
-
-            {/* <div className="">
-              <textarea
-                name="reactionText"
-                placeholder="Add your reaction..."
-                value={reactionText}
-                className=""
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
-                onChange={handleChange}
-              ></textarea>
-            </div> */}
-
             <div >
               <button className="btn btn-dark" type="submit">
                 Add Reaction

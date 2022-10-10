@@ -11,6 +11,9 @@ export const QUERY_USER = gql`
         thoughtText
         createdAt
       }
+      friends {
+        _id
+      }
     }
   }
 `;
@@ -54,6 +57,9 @@ export const QUERY_ME = gql`
         thoughtText
         username
         createdAt
+      }
+      friends {
+        _id
       }
     }
   }

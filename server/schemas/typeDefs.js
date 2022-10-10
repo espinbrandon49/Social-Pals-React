@@ -32,6 +32,8 @@ const typeDefs = gql`
 
   type Friend {
     _id: ID
+    userId: String
+    friendId: String
     friend: User
   }
 

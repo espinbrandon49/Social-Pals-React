@@ -30,7 +30,6 @@ const ReactionList = ({ reactions = [] }) => {
     <>
       <h3
         className="pb-2 mb-2 border-bottom border-danger roboto"
-  
       >
         Reactions
       </h3>

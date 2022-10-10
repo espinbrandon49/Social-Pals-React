@@ -1,22 +1,26 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-
+import { useQuery, useMutation } from '@apollo/client';
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
+import { ADD_FRIEND } from '../utils/mutations';
 
 const Profile = () => {
   const { username: userParam } = useParams();
+
+  const notMe = userParam !== Auth.username;
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
-  if(!localStorage.getItem('id_token')) {
+  const [addFriend, { error2}] = useMutation(ADD_FRIEND);
+
+  if (!localStorage.getItem('id_token')) {
     return (
       <h4>
         You need to be logged in to see this. Use the navigation links above to
@@ -43,17 +47,43 @@ const Profile = () => {
       </h4>
     );
   }
+  let friendId = user._id
+  // console.log(friendId)
+  let userId = Auth.getProfile().data._id
+  // console.log(userId)
+  let friends = []
+
+ console.log(user)//this is friend, whoever's profile is being viewed
+ console.log(Auth.getProfile().data)
+  const addFriendHandle = async (event) => {
+    event.preventDefault()
+    try {
+      const { data } = await addFriend({
+        variables: {
+          userId,
+          friendId
+
+        },
+      });
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
     <div className='d-flex flex-column align-items-center'>
       <h2 className="roboto">
-        Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        Viewing {notMe ? `${user.username}'s` : 'your'} profile.
       </h2>
+
+      {notMe && (
+        <button type='button' onClick={addFriendHandle}>Add Friend</button>
+      )}
 
       <ThoughtList
         thoughts={user.thoughts}
         title={`${user.username}'s thoughts...`}
-        showTitle={false}
+        showTitle={true}
         showUsername={false}
       />
 

@@ -60,7 +60,7 @@ mutation addFriend($userId: ID, $friendId: ID) {
   addFriend(userId: $userId, friendId: $friendId) {
     userId
     friendId
-    friends
+
   }
 }
 `

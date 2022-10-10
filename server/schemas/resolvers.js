@@ -6,10 +6,10 @@ const mongoose = require('mongoose')
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('thoughts');
+      return User.find().populate('thoughts').populate('friends');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
+      return User.findOne({ username }).populate('thoughts').populate('friends');
     },
     thoughts: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -20,7 +20,7 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('thoughts').populate('friends');
       }
       throw new AuthenticationError('You need to be logged in!');
     },

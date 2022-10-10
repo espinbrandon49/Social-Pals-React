@@ -92,4 +92,6 @@ function App() {
 
 export default App;
 
-//when you try to go to a profile by clicked a username and are not logged in, you crash
+//when you view thoughts on your profile, it does not show "You had this thought... on the thought listings"
+
+// when you add a reaction, it does not populate immediately
