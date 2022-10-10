@@ -93,5 +93,5 @@ function App() {
 export default App;
 
 //when you view thoughts on your profile, it does not show "You had this thought... on the thought listings"
-
 // when you add a reaction, it does not populate immediately
+// when you add a friend, it does not populate immediately

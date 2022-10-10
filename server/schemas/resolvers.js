@@ -98,12 +98,12 @@ const resolvers = {
       );
     },
 
-    addFriend: async (parent, { userId, friendId }) => {
+    addFriend: async (parent, { userId, friendId, username }) => {
       return User.findOneAndUpdate(
         { _id: userId },
         {
           $addToSet: {
-            friends: { _id: friendId },
+            friends: { _id: friendId, username: username },
           },
         },
         {

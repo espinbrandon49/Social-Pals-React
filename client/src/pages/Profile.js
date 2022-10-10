@@ -3,6 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
+import FriendList from '../components/FriendList';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
@@ -18,7 +19,7 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
-  const [addFriend, { error2}] = useMutation(ADD_FRIEND);
+  const [addFriend, { error2 }] = useMutation(ADD_FRIEND);
 
   if (!localStorage.getItem('id_token')) {
     return (
@@ -48,21 +49,18 @@ const Profile = () => {
     );
   }
   let friendId = user._id
-  // console.log(friendId)
   let userId = Auth.getProfile().data._id
-  // console.log(userId)
-  let friends = []
-
- console.log(user)//this is friend, whoever's profile is being viewed
- console.log(Auth.getProfile().data)
+  let username = user._id
+  // console.log(user)
+  // console.log(Auth.getProfile().data)
   const addFriendHandle = async (event) => {
     event.preventDefault()
     try {
       const { data } = await addFriend({
         variables: {
           userId,
-          friendId
-
+          friendId,
+          username
         },
       });
     } catch (err) {
@@ -88,11 +86,16 @@ const Profile = () => {
       />
 
       {!userParam && (
-        <div
-          style={{ border: '1px dotted #dc3545' }}
-        >
-          <ThoughtForm />
-        </div>
+        <>
+          <div
+            style={{ border: '1px dotted #dc3545' }}
+          >
+            <ThoughtForm />
+          </div>
+          <div>
+            <FriendList/>
+          </div>
+        </>
       )}
     </div>
   );

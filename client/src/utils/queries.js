@@ -13,6 +13,7 @@ export const QUERY_USER = gql`
       }
       friends {
         _id
+        username
       }
     }
   }
@@ -60,6 +61,7 @@ export const QUERY_ME = gql`
       }
       friends {
         _id
+        username
       }
     }
   }

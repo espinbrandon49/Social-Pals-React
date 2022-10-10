@@ -34,6 +34,7 @@ const typeDefs = gql`
     _id: ID
     userId: String
     friendId: String
+    username: String
     friend: User
   }
 
@@ -56,7 +57,8 @@ const typeDefs = gql`
       reactionId: ID): Thought
     addFriend(
       userId: ID 
-      friendId: ID): Friend
+      friendId: ID
+      username: String): Friend
     removeFriend(
       userId: ID
       friendId: ID): Friend
