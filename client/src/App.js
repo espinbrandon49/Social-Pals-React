@@ -42,7 +42,7 @@ const client = new ApolloClient({
 });
 
 const styles = {
-  minVh:  {
+  minVh: {
     minHeight: "100vh",
   }
 }
@@ -56,28 +56,28 @@ function App() {
           <Header />
           <div className="container">
             <Routes>
-              <Route 
+              <Route
                 path="/"
                 element={<Home />}
               />
-              <Route 
-                path="/login" 
+              <Route
+                path="/login"
                 element={<Login />}
               />
-              <Route 
-                path="/signup" 
+              <Route
+                path="/signup"
                 element={<Signup />}
               />
-              <Route 
-                path="/me" 
+              <Route
+                path="/me"
                 element={<Profile />}
               />
-              <Route 
-                path="/profiles/:username" 
+              <Route
+                path="/profiles/:username"
                 element={<Profile />}
               />
-              <Route 
-                path="/thoughts/:thoughtId" 
+              <Route
+                path="/thoughts/:thoughtId"
                 element={<SingleThought />}
               />
             </Routes>
@@ -91,6 +91,9 @@ function App() {
 
 export default App;
 
-//when you view thoughts on your profile, it does not show "You had this thought... on the thought listings"
 // when you add a reaction, it does not populate immediately
 // when you add a friend, it does not populate immediately
+// when you delete a friend it does not populate immediately
+// when you delete a reaction it does not populate immediately
+// confirm add friend
+// if friend, disable friend button

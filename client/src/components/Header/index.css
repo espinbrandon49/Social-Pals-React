@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
 
 .link {
   text-decoration: none !important;
-  /* color: rgb(255, 255, 255, 0.55) !important; */
   color: rgba(255, 255, 255, .75) !important;
 }
 
@@ -12,6 +12,9 @@
 
 .roboto {
   font-family: 'Roboto', sans-serif;
+}
+.italiana {
+  font-family: 'Italiana', serif;
 }
 
 .brand {

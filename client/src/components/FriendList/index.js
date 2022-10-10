@@ -1,14 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER } from '../../utils/queries';
-import {REMOVE_FRIEND} from '../../utils/mutations';
+import { REMOVE_FRIEND } from '../../utils/mutations';
 import Auth from '../../utils/auth';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const FriendList = () => {
 
   const username = Auth.getProfile().data.username
   const userId = Auth.getProfile().data._id
-  console.log(userId)
   const { loading, data } = useQuery(QUERY_USER, {
     variables: { username }
   })
@@ -31,16 +32,24 @@ const FriendList = () => {
   }
 
   return (
-    <div>
-      Hello FriendList
-      {friendsList.map((value, i) => {
-        return (
-          <p key={i}>
-            {value.username}
-            <button value={value._id} onClick={removeFriendHandle}>X</button>
-            </p>
-        )
-      })}
+    <div className='my-4'>
+      <h5 className='w-75 pb-3 roboto border-bottom border-danger m-auto text-center mb-3'>Pal's List</h5>
+      <ListGroup variant="flush" className='bg-light'>
+        {friendsList.map((value, i) => {
+          return (
+            <ListGroup.Item key={i} className="h6 roboto bg-light text-center">
+              <Link to={`/profiles/${value.username}`}>{value.username}</Link>&nbsp;
+              <button
+                value={value._id}
+                onClick={removeFriendHandle}
+                className="btn btn-outline-danger rounded-circle btn-sm "
+              >
+                X
+              </button>
+            </ListGroup.Item>
+          )
+        })}
+      </ListGroup>
     </div>
   )
 }

@@ -68,33 +68,36 @@ const Profile = () => {
   }
 
   return (
-    <div className='d-flex flex-column align-items-center'>
-      <h2 className="roboto">
+    <div className='d-flex flex-column align-content-center'>
+      <h2 className="roboto text-center  h2 py-2">
         Viewing {notMe ? `${user.username}'s` : 'your'} profile.
       </h2>
 
       {notMe && (
-        <button type='button' onClick={addFriendHandle}>Add Friend</button>
+        <div className='text-center'>
+          <button className='btn btn-secondary btn-lg my-3' type='button' onClick={addFriendHandle}>Add Friend</button>
+        </div>
       )}
 
       <ThoughtList
         thoughts={user.thoughts}
         title={`${user.username}'s thoughts...`}
-        showTitle={true}
-        showUsername={false}
+        showTitle={data.me ? false : true}
+        showUsername={data.me ? false : true}
       />
 
       {!userParam && (
-        <>
+        <div className=''>
           <div
+            className=''
             style={{ border: '1px dotted #dc3545' }}
           >
             <ThoughtForm />
           </div>
-          <div>
-            <FriendList/>
+          <div className=''>
+            <FriendList />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
