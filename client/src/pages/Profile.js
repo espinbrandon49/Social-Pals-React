@@ -5,7 +5,7 @@ import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
 import FriendList from '../components/FriendList';
 
-import { QUERY_USER, QUERY_ME, QUERY_USERS } from '../utils/queries';
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import { ADD_FRIEND } from '../utils/mutations';
@@ -19,15 +19,15 @@ const Profile = () => {
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
+  const user = data?.me || data?.user || {};
 
   const [addFriend, { error2 }] = useMutation(ADD_FRIEND);
-  const user = data?.me || data?.user || {};
 
   const allUsersQuery = useQuery(QUERY_USER, {
     variables: { username: Auth.loggedIn() ? Auth.getProfile().data.username : "bambino1" }
   })
 
-  let loggedInUser = allUsersQuery.data?.user.friends.map((value, i) => { return value.username }) || []
+  const loggedInUser = allUsersQuery.data?.user.friends.map((value, i) => { return value.username }) || []
 
   useEffect(() => {
     if (loggedInUser.includes(user.username)) {
@@ -36,7 +36,6 @@ const Profile = () => {
     }
   }, [loggedInUser])
 
-  console.log(loggedInUser.includes(user.username))
 
   if (!localStorage.getItem('id_token') || !user?.username) {
     return (
@@ -59,7 +58,6 @@ const Profile = () => {
   const friendId = user._id
   const userId = Auth.getProfile().data._id
   const username = user._id
-
   const addFriendHandle = async (event) => {
     try {
       const { data } = await addFriend({
@@ -73,24 +71,23 @@ const Profile = () => {
       console.error(err)
     }
     setBtnTxt('Pal Added')
+    setBtnDisabled(true)
   }
-
-
 
   return (
     <div className='d-flex flex-column align-content-center'>
       <h2 className="roboto text-center  h2 py-2">
-        Viewing {notMe ? `${user.username}'s` : 'your'} profile.
+        Viewing {data.me ? 'your' : `${user.username}'s`} profile.
       </h2>
 
-      {notMe && (
+      {data.user && (
         <div className='text-center'>
           <button
             className='btn btn-secondary btn-lg my-3'
             type='button'
             onClick={addFriendHandle}
             disabled={btnDisabled}
-            >{btnText}</button>
+          >{btnText}</button>
         </div>
       )}
 

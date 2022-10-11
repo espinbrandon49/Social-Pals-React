@@ -90,7 +90,3 @@ function App() {
 }
 
 export default App;
-
-// when you add a friend, it does not populate immediately
-// when you delete a friend it does not populate immediately
-// if friend, disable friend button
