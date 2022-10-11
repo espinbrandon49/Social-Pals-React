@@ -6,7 +6,16 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './index.css'
 
+import { useQuery } from '@apollo/client';
+import { QUERY_USER } from '../../utils/queries';
+
 const Header = () => {
+
+  const { data, refetch } = useQuery(QUERY_USER, {
+    variables: { username: Auth.loggedIn() ? Auth.getProfile().data.username :  "bambino1" }
+  })
+  const user = data?.user || {};
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -23,7 +32,9 @@ const Header = () => {
             {Auth.loggedIn() ? (
               <div className="d-flex h5 pb-2 mb-4 text-danger border-bottom border-danger">
                 <Nav.Link>
-                  <Link className='link roboto h5' to="/me">
+                  <Link className='link roboto h5' to="/me"
+                    onClick={() => refetch({ username: Auth.getProfile().data.username })}
+                     >
                     {Auth.getProfile().data.username}'s Profile
                   </Link>
                 </Nav.Link>

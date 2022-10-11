@@ -91,9 +91,6 @@ function App() {
 
 export default App;
 
-// when you add a reaction, it does not populate immediately
 // when you add a friend, it does not populate immediately
 // when you delete a friend it does not populate immediately
-// when you delete a reaction it does not populate immediately
-// confirm add friend
 // if friend, disable friend button

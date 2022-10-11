@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form';
 
 const ThoughtForm = () => {
   const [thoughtText, setThoughtText] = useState('');
-
+  const { loading, data } = useQuery(QUERY_ME);
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
@@ -26,7 +26,9 @@ const ThoughtForm = () => {
       }
 
       // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
+      const { me } = cache.readQuery({
+        query: QUERY_ME
+      });
       cache.writeQuery({
         query: QUERY_ME,
         data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
@@ -36,7 +38,6 @@ const ThoughtForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const { data } = await addThought({
         variables: {
@@ -53,7 +54,6 @@ const ThoughtForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     if (name === 'thoughtText' && value.length <= 280) {
       setThoughtText(value);
       setCharacterCount(value.length);
@@ -61,7 +61,7 @@ const ThoughtForm = () => {
   };
 
   return (
-    <div className='p-3' style={{backgroundColor: "#f8f9fa"}}>
+    <div className='p-3' style={{ backgroundColor: "#f8f9fa" }}>
       <h3 className='roboto'>So what's on your mind?</h3>
 
       {Auth.loggedIn() ? (
@@ -83,7 +83,7 @@ const ThoughtForm = () => {
                 className='roboto'
                 name="thoughtText"
                 value={thoughtText}
-                style={{ lineHeight: '1.5', resize: 'vertical', height: '100px'}}
+                style={{ lineHeight: '1.5', resize: 'vertical', height: '100px' }}
                 onChange={handleChange}
               />
             </FloatingLabel>

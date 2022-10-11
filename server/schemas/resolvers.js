@@ -114,7 +114,7 @@ const resolvers = {
 
     removeFriend: async (parent, { userId, friendId }) => {
       return User.findOneAndUpdate(
-       { _id: userId },
+        { _id: userId },
         { $pull: { friends: mongoose.Types.ObjectId(friendId) } },
         { new: true }
       );

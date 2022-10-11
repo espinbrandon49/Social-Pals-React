@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 const ReactionList = ({ reactions = [] }) => {
   const [removeReaction, { error, data }] = useMutation(REMOVE_REACTION);
   let thoughtId = useParams()
-  console.log(thoughtId.thoughtId)
+
   if (!reactions.length) {
     return <h3>No Reactions Yet</h3>;
   }

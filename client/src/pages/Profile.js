@@ -1,27 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
 import FriendList from '../components/FriendList';
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_ME, QUERY_USERS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import { ADD_FRIEND } from '../utils/mutations';
 
 const Profile = () => {
+  const [btnText, setBtnTxt] = useState('Add Friend')
   const { username: userParam } = useParams();
-
   const notMe = userParam !== Auth.username;
-
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  const { loading, data, refetch } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
-
   const [addFriend, { error2 }] = useMutation(ADD_FRIEND);
+  const user = data?.me || data?.user || {};
 
-  if (!localStorage.getItem('id_token')) {
+  if (!localStorage.getItem('id_token') || !user?.username) {
     return (
       <h4>
         You need to be logged in to see this. Use the navigation links above to
@@ -30,7 +29,6 @@ const Profile = () => {
     );
   }
 
-  const user = data?.me || data?.user || {};
   // navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/me" />;
@@ -40,20 +38,11 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  if (!user?.username) {
-    return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
-    );
-  }
   let friendId = user._id
   let userId = Auth.getProfile().data._id
   let username = user._id
 
-  const addFriendHandle = async (event) => {
-    event.preventDefault()
+  const addFriendHandle = async (event) => { 
     try {
       const { data } = await addFriend({
         variables: {
@@ -64,7 +53,8 @@ const Profile = () => {
       });
     } catch (err) {
       console.error(err)
-    }
+    } 
+    setBtnTxt('Friend Added')
   }
 
   return (
@@ -75,7 +65,7 @@ const Profile = () => {
 
       {notMe && (
         <div className='text-center'>
-          <button className='btn btn-secondary btn-lg my-3' type='button' onClick={addFriendHandle}>Add Friend</button>
+          <button className='btn btn-secondary btn-lg my-3' type='button' onClick={addFriendHandle}>{btnText}</button>
         </div>
       )}
 
