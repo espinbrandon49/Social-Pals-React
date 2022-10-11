@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import ThoughtForm from '../components/ThoughtForm';
@@ -11,14 +11,32 @@ import Auth from '../utils/auth';
 import { ADD_FRIEND } from '../utils/mutations';
 
 const Profile = () => {
-  const [btnText, setBtnTxt] = useState('Add Friend')
+  const [btnText, setBtnTxt] = useState('Add Pal')
+  const [btnDisabled, setBtnDisabled] = useState(false)
   const { username: userParam } = useParams();
   const notMe = userParam !== Auth.username;
-  const { loading, data, refetch } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
+
   const [addFriend, { error2 }] = useMutation(ADD_FRIEND);
   const user = data?.me || data?.user || {};
+
+  const allUsersQuery = useQuery(QUERY_USER, {
+    variables: { username: Auth.loggedIn() ? Auth.getProfile().data.username : "bambino1" }
+  })
+
+  let loggedInUser = allUsersQuery.data?.user.friends.map((value, i) => { return value.username }) || []
+
+  useEffect(() => {
+    if (loggedInUser.includes(user.username)) {
+      setBtnTxt('PALS')
+      setBtnDisabled(true)
+    }
+  }, [loggedInUser])
+
+  console.log(loggedInUser.includes(user.username))
 
   if (!localStorage.getItem('id_token') || !user?.username) {
     return (
@@ -38,11 +56,11 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  let friendId = user._id
-  let userId = Auth.getProfile().data._id
-  let username = user._id
+  const friendId = user._id
+  const userId = Auth.getProfile().data._id
+  const username = user._id
 
-  const addFriendHandle = async (event) => { 
+  const addFriendHandle = async (event) => {
     try {
       const { data } = await addFriend({
         variables: {
@@ -53,9 +71,11 @@ const Profile = () => {
       });
     } catch (err) {
       console.error(err)
-    } 
-    setBtnTxt('Friend Added')
+    }
+    setBtnTxt('Pal Added')
   }
+
+
 
   return (
     <div className='d-flex flex-column align-content-center'>
@@ -65,7 +85,12 @@ const Profile = () => {
 
       {notMe && (
         <div className='text-center'>
-          <button className='btn btn-secondary btn-lg my-3' type='button' onClick={addFriendHandle}>{btnText}</button>
+          <button
+            className='btn btn-secondary btn-lg my-3'
+            type='button'
+            onClick={addFriendHandle}
+            disabled={btnDisabled}
+            >{btnText}</button>
         </div>
       )}
 
