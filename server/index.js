@@ -38,7 +38,3 @@ const startApolloServer = async (typeDefs, resolvers) => {
 }
 
 startApolloServer(typeDefs, resolvers);
-// **BONUS**: Remove a user's associated thoughts when deleted
-// Use a getter method to format the timestamp on query
-// validate an element exists before updating or deleting 
-// separate routes and controller concerns 
