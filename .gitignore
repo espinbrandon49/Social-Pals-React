@@ -1,0 +1,71 @@
+# =========================
+# Node & General
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Environment files (never commit secrets: JWT keys, DB URIs, API keys)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+*.log.*
+debug.log
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Coverage / Testing
+coverage/
+*.lcov
+
+# Temp directories
+tmp/
+temp/
+.cache/
+
+# =========================
+# Client (React)
+# =========================
+client/build/
+client/.cache/
+client/.next/
+client/out/
+
+# =========================
+# Server (Node / Express / MongoDB / GraphQL)
+# =========================
+server/dist/
+server/build/
+
+# MongoDB local database files (dev only)
+*.mongodb
+*.mongo
+dump/
+
+# Mongoose / GraphQL generated artifacts
+.graphqlrc
+.graphqlconfig
+.graphqlconfig.yaml
+graphql-schema.json
+
+# =========================
+# Misc
+# =========================
+# If using file uploads with Express or GraphQL
+uploads/
